@@ -79,10 +79,10 @@
             <div class="content-main">
               <div class="page-header">
                 {% if style == 'list' %}
-                <h1 style="display: inline;">{{view|get_model_name_plural}} </h1>
+                <h2 style="display: inline;">{{view|get_model_name_plural}} </h2>
                 {% else %}
                 <div >
-                  <a href="{{view|get_home_path}}"><h1 style="display: inline;"> {{view|get_model_name_plural}} </h1> </a>  <h1 style="display: inline;">&nbsp/&nbsp{{view|get_model_name }} </h1>
+                  <a href="{{view|get_home_path}}"><h2 style="display: inline;"> {{view|get_model_name_plural}} </h2> </a>  <h2 style="display: inline;">&nbsp/&nbsp{{view|get_model_name }} </h2>
                 </div>
                 {%  endif %}
                 
