@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
     'crispy_forms',
+    'crispy_bootstrap3',
     'django_filters',
     'rest_framework',
 ]
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    #'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'cesem.urls'
@@ -79,11 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-
-# TEMPLATE_LOADERS = (
-    #'django.template.loaders.filesystem.Loader',
-    #'django.template.loaders.app_directories.Loader',
-# )
 
 
 WSGI_APPLICATION = 'cesem.wsgi.application'
@@ -123,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'es'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -142,7 +137,8 @@ STATIC_ROOT = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap3"
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 LOGOUT_REDIRECT_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 
@@ -155,6 +151,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend', 'rest_framework.filters.OrderingFilter']
+
     #'SEARCH_PARAM': 'query',
     #'ORDERING_PARAM': 'sort',
     #'DEFAULT_TEMPLATE_PACKAGES': [

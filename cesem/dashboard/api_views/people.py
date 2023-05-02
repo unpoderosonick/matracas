@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+
 from core.models import Person
 from .utils import BasePathSerializer
 
@@ -16,3 +17,14 @@ class PersonPathSerializer(BasePathSerializer):
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonPathSerializer
+    filterset_fields = {
+        'name': ['contains'],
+        'last_name': ['contains'],
+        'dni': ['contains']
+    }
+    ordering_fields = ('name', 'last_name')
+    ordering = ('name')
+
+
+
+

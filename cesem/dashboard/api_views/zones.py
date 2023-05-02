@@ -16,3 +16,6 @@ class ZonePathSerializer(BasePathSerializer):
 class ZoneViewSet(viewsets.ModelViewSet):
     queryset = Zone.objects.all()
     serializer_class = ZonePathSerializer
+    filterset_fields = {
+        'name': ['contains']
+    }
