@@ -1,10 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from core.models import Activity, Community, Diagnostic, Drug, SicknessObservation, Zone, Visit, Person
-#import excel2json
-#from python_excel2json import parse_excel_to_json
 import pandas as pd
-import math
+
 import os
 
 baset_path = os.path.join(settings.BASE_DIR,'core', 'management','commands','files')

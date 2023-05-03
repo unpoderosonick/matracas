@@ -22,6 +22,7 @@ class Person(models.Model):
     def __str__(self) -> str:
         return self.name
 
+        
 class Zone(models.Model):
     name = models.CharField('zona', max_length=20)
     
