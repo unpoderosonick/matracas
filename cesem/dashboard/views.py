@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 from .api_views.people import PersonViewSet, PersonPathSerializer
 from .api_views.users import UserViewSet, UserPathSerializer
@@ -6,18 +7,31 @@ from .api_views.zones import ZoneViewSet, ZonePathSerializer
 from .api_views.sectores import SectorViewSet, SectorPathSerializer
 from .api_views.communities import CommunityViewSet, CommunityPathSerializer
 from .api_views.activities import ActivityViewSet, ActivityPathSerializer
+from .api_views.visits import VisitViewSet, VisitPathSerializer
+from .api_views.diagnostics import DiagnosticViewSet, DiagnosticPathSerializer
+from .api_views.sickness_observations import SicknessObservationViewSet, SicknessObservationPathSerializer
 
 
+@login_required
 def home_view(request):
     message = 'hello low'
     return render(request, 'dashboard/home.html', locals())
 
 
-    # Routers provide an easy way of automatically determining the URL conf.
+people_path = PersonPathSerializer.get_path()
+visit_path = VisitPathSerializer.get_path()
+diagnistic_path = DiagnosticPathSerializer.get_path()
+sickness_observations_path = SicknessObservationPathSerializer.get_path()
+activities_path = ActivityPathSerializer.get_path()
+communities_path = CommunityPathSerializer.get_path()
+
 router = routers.DefaultRouter()
-router.register(r'%s' % UserPathSerializer.get_path(), UserViewSet)
-router.register(r'%s' % PersonPathSerializer.get_path(), PersonViewSet)
+router.register(r'%s' % UserPathSerializer.get_path(), UserViewSet,)
+router.register(r'%s' % people_path, PersonViewSet, basename=people_path)
 router.register(r'%s' % ZonePathSerializer.get_path(), ZoneViewSet)
 router.register(r'%s' % SectorPathSerializer.get_path(), SectorViewSet)
-router.register(r'%s' % CommunityPathSerializer.get_path(), CommunityViewSet)
-router.register(r'%s' % ActivityPathSerializer.get_path(), ActivityViewSet)
+router.register(r'%s' % communities_path, CommunityViewSet, basename=communities_path)
+router.register(r'%s' % activities_path, ActivityViewSet, basename=activities_path)
+router.register(r'%s' % visit_path, VisitViewSet, basename=visit_path)
+router.register(r'%s' % diagnistic_path, DiagnosticViewSet, basename=diagnistic_path)
+router.register(r'%s' % sickness_observations_path, SicknessObservationViewSet, basename=sickness_observations_path)

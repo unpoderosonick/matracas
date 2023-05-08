@@ -106,7 +106,7 @@ class Drug(models.Model):
 
 
 class Visit(models.Model):
-    visited_at = models.DateField('fecha de creacion')
+    visited_at = models.DateField('fecha de creación')
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
     up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable', verbose_name='up. responsable')
     up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member', verbose_name='up. integrante')
