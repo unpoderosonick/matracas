@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Activity, Person, Visit, VisitDetails, Community, Diagnostic, Drug, SicknessObservation, Zone
+from core.models import Activity, Person, VisitAnimal, VisitAnimalDetails, Community, Diagnostic, Drug, SicknessObservation, Zone
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('name', 'dni', 'sex')
@@ -16,7 +16,7 @@ admin.site.register(SicknessObservation)
 admin.site.register(Zone)
 
 class VisitDetailInline(admin.TabularInline):
-    model = VisitDetails
+    model = VisitAnimalDetails
 
 class VisitAdmin(admin.ModelAdmin):
     inlines = [
@@ -24,4 +24,4 @@ class VisitAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(Visit, VisitAdmin)
+admin.site.register(VisitAnimal, VisitAdmin)
