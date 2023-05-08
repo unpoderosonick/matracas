@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Activity, Visit
+from core.models import Activity, VisitAnimal
 from django.db.models.functions import ExtractWeek, ExtractYear
 from django.db.models import Sum, F
 from datetime import datetime, timedelta
@@ -17,7 +17,7 @@ def get_date_from_week(year, week_number):
 def report(request):
     activities = Activity.objects.all().order_by('name')
     
-    stats = (Visit.objects        
+    stats = (VisitAnimal.objects        
         .annotate(year=ExtractYear('visited_at'))
         .annotate(week=ExtractWeek('visited_at'))
         .values('year', 'week')

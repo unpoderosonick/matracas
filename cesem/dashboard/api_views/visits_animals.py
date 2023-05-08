@@ -1,11 +1,11 @@
-from core.models import Visit
+from core.models import VisitAnimal
 from rest_framework import serializers, viewsets
 
 from .utils import BasePathSerializer
 from .zones import ZonePathSerializer
 
 
-class VisitPathSerializer(BasePathSerializer):
+class VisitAnimalPathSerializer(BasePathSerializer):
     zona = serializers.StringRelatedField(many=False, source='zone')
     up_responsable = serializers.StringRelatedField(many=False)
     up_miembro = serializers.StringRelatedField(many=False, source='up_member')
@@ -17,23 +17,23 @@ class VisitPathSerializer(BasePathSerializer):
 
     @staticmethod
     def get_path():
-        return 'visit'
+        return 'visits-animals'
     
     class Meta:
-        model = Visit
+        model = VisitAnimal
         fields = ['visited_at', 'zona', 'up_responsable', 'up_miembro', 'cesem_especialista', 'cesem_responsable', 'actividad', 'enfermedad_observación', 'diagnostico', 'cattle', 'sheep', 'alpacas', 'llamas', 'canes', 'url']
 
 
-class VisitViewSet(viewsets.ModelViewSet):
+class VisitAnimalViewSet(viewsets.ModelViewSet):
 
-    queryset = Visit.objects\
+    queryset = VisitAnimal.objects\
         .select_related('zone')\
         .select_related('up_responsable','up_member','employ_specialist','employ_responsable')\
         .select_related('activity')\
         .select_related('sickness_observation')\
         .select_related('diagnostic')\
         .all()
-    serializer_class = VisitPathSerializer
+    serializer_class = VisitAnimalPathSerializer
 
     filterset_fields = {
         'zone__name': ['contains'],
