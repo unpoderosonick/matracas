@@ -1,78 +1,25 @@
-from django.core.management.base import BaseCommand
+import os
 from django.conf import settings
-from core.models import Activity, Community, Diagnostic, Drug, SicknessObservation, Zone, Visit, Person
+from core.models import Activity, Community, Diagnostic, Drug, SicknessObservation, Zone, VisitAnimal, Sector
 import pandas as pd
 
-import os
+from .utils import HelperCommand
 
 baset_path = os.path.join(settings.BASE_DIR,'core', 'management','commands','files')
 
-class Command(BaseCommand):
+class Command(HelperCommand):
     help = "import xls data"
-    people_names = {}
     diagnostic_names = {}
     sickness_observation_names = {}
-    activities_names = {}
-    zones_names = {}
 
     def __init__(self):
-        people = Person.objects.all()
-        for p in people:
-            self.people_names[p.name] = p
-
         diagnostics = Diagnostic.objects.all()
         for d in diagnostics:
             self.diagnostic_names[d.name] = d
-        
-        zones = Zone.objects.all()
-        for z in zones:
-            self.zones_names[z.name] = z
 
         sickness_observations = SicknessObservation.objects.all()
         for s in sickness_observations:
             self.sickness_observation_names[s.name] = s
-
-        activities = Activity.objects.all()
-        for a in activities:
-            self.activities_names[s.name] = a
-    
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--creates_if_none',
-            default=False,
-            help='it creates activites, diagnostics and sickness if doesnt exists',
-        )
-        
-
-    def get_person(self, name, dni=None, sex=None):
-        sex_data = None
-        if sex == 'M':
-            sex_data = Person.Sexs.MALE
-        if sex == 'F':
-            sex_data = Person.Sexs.FEMALE
-
-        person = None
-        if name in self.people_names:
-            person = self.people_names[name]
-        else:
-            try:
-                person = Person.objects.get(name=name)
-            except Person.DoesNotExist:
-                person = Person.objects.create(name=name, dni= dni, sex=sex_data)
-                self.people_names[name] = person
-        return person
-    
-    def get_zone(self, name, creates_if_none):        
-        zone = None
-        if name in self.zones_names:
-            zone = self.zones_names[name]
-        else:
-            if creates_if_none:
-                zone = Zone.objects.create(name=name)
-                self.zones_names[name] = zone
-            else:
-                raise Zone.DoesNotExist()
-        return zone
 
     def get_diagnostic(self, name, creates_if_none):
         diagnostic = None
@@ -98,18 +45,6 @@ class Command(BaseCommand):
                 raise SicknessObservation.DoesNotExist()
         return sickness_observation
 
-    def get_activity(self, name, creates_if_none):
-        activity = None
-        if name in self.activities_names:
-            activity = self.activities_names[name]
-        else:
-            if creates_if_none:
-                activity = Activity.objects.create(name=name)
-                self.activities_names[name] = activity
-            else:
-                raise Activity.DoesNotExist()
-        return activity
-
     def zero_if_nan(self, val):
         try:
             if str(float(val)).lower() == 'nan':
@@ -130,16 +65,16 @@ class Command(BaseCommand):
         data = df.to_dict()
         rows_count = len(data['Nº'].keys())
         visits = []
-
+        
         for i in range (rows_count):
             
             # data['Nº'][i]
             # data['MES'][i]
             data_visited_at = data['FECHA'][i]
             data_zone = data['ZONA'][i]
-            # data['COMUNIDAD '][i]
+            data_community = data['COMUNIDAD '][i]
             # data['PDE-2019'][i]
-            # data['SECTOR/IRRIGACION DE LA UP '][i]
+            data_sector =  data['SECTOR/IRRIGACION DE LA UP '][i]
             # data['TIPOLOGIA DE UP'][i]
             # data['UP  ES PILOTO?'][i]
             data_up_responsable_name = data['NOMBRE RESPONSABLE UP'][i]
@@ -182,6 +117,8 @@ class Command(BaseCommand):
             try:
                 visited_at = data_visited_at
                 zone = self.get_zone(data_zone, creates_if_none)
+                community = self.get_community(data_community, creates_if_none)
+                sector = self.get_sector(data_sector, creates_if_none)
                 up_responsable = self.get_person(data_up_responsable_name, data_up_responsable_dni, data_up_responsable_sex)
                 up_member = self.get_person(data_up_member_name, data_up_member_dni, data_up_member_sex)                
                 employ_specialist = self.get_person(data_employ_specialist)
@@ -195,9 +132,11 @@ class Command(BaseCommand):
                 llamas = data_llamas
                 canes = data_canes
                 
-                visits.append(Visit(
+                visits.append(VisitAnimal(
                     visited_at = visited_at,
                     zone = zone,
+                    community = community,
+                    sector = sector,
                     up_responsable = up_responsable,
                     up_member = up_member,
                     employ_specialist = employ_specialist,
@@ -215,6 +154,12 @@ class Command(BaseCommand):
             except Zone.DoesNotExist:
                 print('row', str(i + 1) ,'not found zone:', data_zone)
                 exit()
+            except Community.DoesNotExist:
+                print('row', str(i + 1) ,'not found community:', data_community)
+                exit()
+            except Sector.DoesNotExist:
+                print('row', str(i + 1) ,'not found sector:', data_sector)
+                exit()
             except Activity.DoesNotExist:
                 print('row', str(i + 1) ,'not found activity:', data_activity)
                 exit()
@@ -226,4 +171,4 @@ class Command(BaseCommand):
                 exit()
             
        
-        Visit.objects.bulk_create(visits)
+        VisitAnimal.objects.bulk_create(visits)

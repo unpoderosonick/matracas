@@ -2,7 +2,7 @@ from django.db import models
 
 class Person(models.Model):
     class Sexs(models.IntegerChoices):
-        FEMALE = 0, ('femino')
+        FEMALE = 0, ('femenino')
         MALE = 1, ('masculino')
 
     class Titles(models.IntegerChoices):
@@ -105,13 +105,15 @@ class Drug(models.Model):
         return self.name
 
 
-class Visit(models.Model):
+class VisitAnimal(models.Model):
     visited_at = models.DateField('fecha de creacion')
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
-    up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable', verbose_name='up. responsable')
-    up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member', verbose_name='up. integrante')
-    employ_specialist = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_specialist', verbose_name='personal especialista')
-    employ_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_responsable', verbose_name='personal responsable')
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, verbose_name='sector')
+    up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable_animal', verbose_name='up. responsable')
+    up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member_animal', verbose_name='up. integrante')
+    employ_specialist = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_specialist_animal', verbose_name='personal especialista')
+    employ_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_responsable_animal', verbose_name='personal responsable')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='actividad')    
     sickness_observation = models.ForeignKey(SicknessObservation, on_delete=models.CASCADE, verbose_name='enfermedad/observación')
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE, verbose_name='diagnostico')
@@ -122,14 +124,31 @@ class Visit(models.Model):
     canes = models.IntegerField('canes', default=0)
 
     class Meta:
-        verbose_name = 'visita'
-        verbose_name_plural = 'visitas'
+        verbose_name = 'visita animal'
+        verbose_name_plural = 'visitas animales'
 
-class VisitDetails(models.Model):
-    visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
+class VisitAnimalDetails(models.Model):
+    visit = models.ForeignKey(VisitAnimal, on_delete=models.CASCADE)
     drug = models.ForeignKey(Drug, on_delete=models.CASCADE, verbose_name='farmacos')
     quantity = models.IntegerField('cantidad', default=0)
     
     class Meta:
-        verbose_name = 'visita - detalle'
-        verbose_name_plural = 'visitas  - detalles'
+        verbose_name = 'visita animal - detalle'
+        verbose_name_plural = 'visitas animales - detalles'
+
+class VisitGrass(models.Model):
+    visited_at = models.DateField('fecha de creacion')
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, verbose_name='sector')
+    up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable_grass', verbose_name='up. responsable')
+    up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member_grass', verbose_name='up. integrante')
+    utm_coordenate = models.CharField('coordenadas UTM anuales', max_length=30, null=True, blank=True)
+    employ_specialist = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_specialist_grass', verbose_name='personal especialista')
+    employ_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_responsable_grass', verbose_name='personal responsable')
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='actividad')
+    quantity = models.IntegerField('cantidad', default=0)
+
+    class Meta:
+        verbose_name = 'visita pastos'
+        verbose_name_plural = 'visitas pastos'
