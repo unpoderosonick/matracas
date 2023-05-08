@@ -106,7 +106,7 @@ class Drug(models.Model):
 
 
 class VisitAnimal(models.Model):
-    visited_at = models.DateField('fecha de creacion')
+    visited_at = models.DateField('fecha de creación')
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
     community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE, verbose_name='sector')

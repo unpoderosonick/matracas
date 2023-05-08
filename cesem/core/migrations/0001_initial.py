@@ -102,7 +102,7 @@ class Migration(migrations.Migration):
             name='VisitAnimal',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('visited_at', models.DateField(verbose_name='fecha de creacion')),
+                ('visited_at', models.DateField(verbose_name='fecha de creación')),
                 ('cattle', models.IntegerField(default=0, verbose_name='vacunos')),
                 ('sheep', models.IntegerField(default=0, verbose_name='ovinos')),
                 ('alpacas', models.IntegerField(default=0, verbose_name='alpacas')),

@@ -1,6 +1,42 @@
-{% extends 'dashboard/layout.html' %}
-{% block body %}
+{% extends 'dashboard/layout.html' %} {% block body %}
+{% load dashboard_extras %}
 
 <h2>{{ message }}</h2>
-    
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th rowspan="2">Actividad</th>
+      {% for stat in result %}
+      <th colspan="6">{{stat.start_of_week}}</th>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for stat in result %}
+      <th>vacas</th>
+      <th>ovinos</th>
+      <th>alpacas</th>
+      <th>llamas</th>
+      <th>canes</th>
+      <th class="warning">Total</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for activity in activities %}
+    <tr>
+      <td>{{activity.name}}</td>
+      {% for stat in stats %}
+      <td>{{stat.sum_cattle}}</td>    
+      <td>{{stat.sum_sheep}}</td>    
+      <td>{{stat.sum_alpacas}}</td>    
+      <td>{{stat.sum_llamas}}</td>    
+      <td>{{stat.sum_canes}}</td>    
+      <td class="warning">{{stat.sum_animals}}</td>    
+      {% endfor %}
+    </tr>
+    {% endfor %} 
+  </tbody>
+</table>
+
 {% endblock %}

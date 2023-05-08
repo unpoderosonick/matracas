@@ -18,7 +18,15 @@ def get_model_name_plural(value):
 def get_model_name(value):
     return value.get_serializer().Meta.model._meta.verbose_name.title()
 
+def get_cattle_report(value, arg):
+    print('value----------------')
+    print(value)
+    activity = arg
+    return 'aaaa'
+    
+
 register.filter("get_columns_names", get_columns_names)
 register.filter("get_model_name_plural", get_model_name_plural)
 register.filter("get_model_name", get_model_name)
 register.filter("get_home_path", get_home_path)
+register.filter("get_cattle_report", get_cattle_report)
