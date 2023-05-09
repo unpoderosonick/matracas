@@ -13,6 +13,7 @@ class Command(HelperCommand):
     sickness_observation_names = {}
 
     def __init__(self):
+        super().__init__()
         diagnostics = Diagnostic.objects.all()
         for d in diagnostics:
             self.diagnostic_names[d.name] = d
@@ -75,8 +76,8 @@ class Command(HelperCommand):
             data_community = data['COMUNIDAD '][i]
             # data['PDE-2019'][i]
             data_sector =  data['SECTOR/IRRIGACION DE LA UP '][i]
-            # data['TIPOLOGIA DE UP'][i]
-            # data['UP  ES PILOTO?'][i]
+            data_tipology = data['TIPOLOGIA DE UP'][i]
+            data_is_pilot = data['UP ES PILOTO?'][i] == 'SI'
             data_up_responsable_name = data['NOMBRE RESPONSABLE UP'][i]
             data_up_responsable_dni = data['Nº DNI'][i]
             data_up_responsable_sex = data['SEXO RUP'][i]
@@ -114,13 +115,7 @@ class Command(HelperCommand):
             # data['CANTIDAD.3'][i]
             # data['U.M..3'][i]
 
-            try:
-                visited_at = data_visited_at
-                zone = self.get_zone(data_zone, creates_if_none)
-                community = self.get_community(data_community, creates_if_none)
-                sector = self.get_sector(data_sector, creates_if_none)
-                up_responsable = self.get_person(data_up_responsable_name, data_up_responsable_dni, data_up_responsable_sex)
-                up_member = self.get_person(data_up_member_name, data_up_member_dni, data_up_member_sex)                
+            try:                
                 employ_specialist = self.get_person(data_employ_specialist)
                 employ_responsable = self.get_person(data_employ_responsable)
                 activity = self.get_activity(data_activity, creates_if_none)
@@ -132,13 +127,24 @@ class Command(HelperCommand):
                 llamas = data_llamas
                 canes = data_canes
                 
+                production_unit = self.get_production_unit(
+                            data_zone, 
+                            data_community, 
+                            data_sector, 
+                            data_up_responsable_name, 
+                            data_up_responsable_dni, 
+                            data_up_responsable_sex,
+                            data_up_member_name, 
+                            data_up_member_dni, 
+                            data_up_member_sex,
+                            data_is_pilot=data_is_pilot,
+                            data_tipology=data_tipology,
+                            creates_if_none=creates_if_none,
+                            )
+
                 visits.append(VisitAnimal(
-                    visited_at = visited_at,
-                    zone = zone,
-                    community = community,
-                    sector = sector,
-                    up_responsable = up_responsable,
-                    up_member = up_member,
+                    visited_at = data_visited_at,
+                    production_unit = production_unit,
                     employ_specialist = employ_specialist,
                     employ_responsable = employ_responsable,
                     activity = activity,

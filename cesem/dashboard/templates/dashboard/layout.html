@@ -66,6 +66,7 @@
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
             <li><a href="{% url 'dashboard:reports_animals' %}">Reporte de Animales</a></li>
             <li><a href="{% url 'dashboard:visits-animals-list' %}">Vista de Animales</a></li>
+            <li><a href="{% url 'dashboard:production_units-list' %}"> Unidades Productivas </a></li>
           </ul>
           <h5>Configuraciones</h5>
           <ul class="nav nav-sidebar">
@@ -76,13 +77,10 @@
                 <a class="nav-link" href="/api/zones/"> Zonas </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/api/sectors/"> Sector </a>
+                <a class="nav-link" href="/api/sectors/"> Sectores </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/api/communities/"> Comunidad </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Unidad Productiva </a>
+                <a class="nav-link" href="/api/communities/"> Comunidades </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard:activities-list' %}"> Actividades </a>
@@ -94,7 +92,7 @@
                 <a class="nav-link" href="{% url 'dashboard:diagnostics-list' %}"> Diagnosticos </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> Farmacos </a>
+                <a class="nav-link" href="{% url 'dashboard:drugs-list' %}"> Farmacos </a>
               </li>
           </ul>
         </div>

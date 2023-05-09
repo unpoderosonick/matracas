@@ -10,7 +10,8 @@ from .api_views.activities import ActivityViewSet, ActivityPathSerializer
 from .api_views.visits_animals import VisitAnimalViewSet, VisitAnimalPathSerializer
 from .api_views.diagnostics import DiagnosticViewSet, DiagnosticPathSerializer
 from .api_views.sickness_observations import SicknessObservationViewSet, SicknessObservationPathSerializer
-
+from .api_views.drugs import DrugPathSerializer, DrugViewSet
+from .api_views.production_units import ProductionUnitPathSerializer, ProductionUnitViewSet
 
 @login_required
 def home_view(request):
@@ -24,6 +25,8 @@ diagnistic_path = DiagnosticPathSerializer.get_path()
 sickness_observations_path = SicknessObservationPathSerializer.get_path()
 activities_path = ActivityPathSerializer.get_path()
 communities_path = CommunityPathSerializer.get_path()
+drugs_path = DrugPathSerializer.get_path()
+production_units_path = ProductionUnitPathSerializer.get_path()
 
 router = routers.DefaultRouter()
 router.register(r'%s' % UserPathSerializer.get_path(), UserViewSet,)
@@ -35,3 +38,5 @@ router.register(r'%s' % activities_path, ActivityViewSet, basename=activities_pa
 router.register(r'%s' % visit_path, VisitAnimalViewSet, basename=visit_path)
 router.register(r'%s' % diagnistic_path, DiagnosticViewSet, basename=diagnistic_path)
 router.register(r'%s' % sickness_observations_path, SicknessObservationViewSet, basename=sickness_observations_path)
+router.register(r'%s' % drugs_path, DrugViewSet, basename=drugs_path)
+router.register(r'%s' % production_units_path, ProductionUnitViewSet, basename=production_units_path)

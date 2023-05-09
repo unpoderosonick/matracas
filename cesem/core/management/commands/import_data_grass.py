@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from core.models import Activity, Community, Diagnostic, Drug, SicknessObservation, Zone, VisitGrass, Sector
+from core.models import Activity, Community, Diagnostic, Drug, SicknessObservation, Zone, VisitGrass, Sector, ProductionUnit
 import pandas as pd
 
 from .utils import HelperCommand
@@ -13,6 +13,7 @@ class Command(HelperCommand):
     sickness_observation_names = {}
 
     def __init__(self):
+        super().__init__()
         diagnostics = Diagnostic.objects.all()
         for d in diagnostics:
             self.diagnostic_names[d.name] = d
@@ -68,10 +69,7 @@ class Command(HelperCommand):
         
         for i in range (rows_count):
             
-            # data['Nº'][i]
-            # data['MES'][i]
             data_visited_at = data['FECHA'][i]
-            # data['DATOS GENERALES'][i]
             data_zone = data['ZONA'][i]
             data_community = data['COMUNIDAD '][i]
             data_sector =  data['SECTOR/IRRIGACION'][i]
@@ -81,34 +79,31 @@ class Command(HelperCommand):
             data_up_member_name = data['NOMBRE DEL INTEGRANTE DE LA UP'][i]
             data_up_member_dni = data['Nº DNI.1'][i]
             data_up_member_sex = data['SEXO IUP'][i]
-            data_coordenate = data['COORDENADAS UTM Anuales'][i]
             data_employ_responsable = data['NOMBRE RESPONSABLE'][i]
             data_employ_specialist = data['RESPONSABLE DE ACTIVIDAD'][i]
-            data_activity = data['ACTIVIDAD REALIZADA'][i]
-            # data['SECCION 3'][i]
-            # data['SECCION 3'][i]
+            data_activity = data['ACTIVIDAD REALIZADA'][i]            
             # TODO: work on activity quantities 
 
-            try:
-                visited_at = data_visited_at
-                zone = self.get_zone(data_zone, creates_if_none)
-                community = self.get_community(data_community, creates_if_none)
-                sector = self.get_sector(data_sector, creates_if_none)
-                up_responsable = self.get_person(data_up_responsable_name, data_up_responsable_dni, data_up_responsable_sex)
-                up_member = self.get_person(data_up_member_name, data_up_member_dni, data_up_member_sex)                
-                coordenate = data_coordenate
+            try:                                
                 employ_responsable = self.get_person(data_employ_responsable)
                 employ_specialist = self.get_person(data_employ_specialist)
-                activity = self.get_activity(data_activity, creates_if_none)
+                activity = self.get_activity(data_activity, creates_if_none)                
+                production_unit = self.get_production_unit(
+                            data_zone, 
+                            data_community, 
+                            data_sector, 
+                            data_up_responsable_name, 
+                            data_up_responsable_dni, 
+                            data_up_responsable_sex,
+                            data_up_member_name, 
+                            data_up_member_dni, 
+                            data_up_member_sex,
+                            creates_if_none=True
+                            )
                 
                 visits.append(VisitGrass(
-                    visited_at = visited_at,
-                    zone = zone,
-                    community = community,
-                    sector = sector,
-                    up_responsable = up_responsable,
-                    up_member = up_member,
-                    utm_coordenate = coordenate,
+                    visited_at = data_visited_at,
+                    production_unit = production_unit,
                     employ_specialist = employ_specialist,
                     employ_responsable = employ_responsable,
                     activity = activity,

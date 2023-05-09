@@ -6,9 +6,9 @@ from .zones import ZonePathSerializer
 
 
 class VisitAnimalPathSerializer(BasePathSerializer):
-    zona = serializers.StringRelatedField(many=False, source='zone')
-    up_responsable = serializers.StringRelatedField(many=False)
-    up_miembro = serializers.StringRelatedField(many=False, source='up_member')
+    zona = serializers.StringRelatedField(many=False, source='production_unit.zone')
+    up_responsable = serializers.StringRelatedField(many=False, source='production_unit.person_responsable')
+    up_miembro = serializers.StringRelatedField(many=False, source='production_unit.person_member')
     cesem_especialista = serializers.StringRelatedField(many=False, source='employ_specialist')
     cesem_responsable = serializers.StringRelatedField(many=False, source='employ_responsable')
     actividad = serializers.StringRelatedField(many=False, source='activity')
@@ -23,22 +23,24 @@ class VisitAnimalPathSerializer(BasePathSerializer):
         model = VisitAnimal
         fields = ['visited_at', 'zona', 'up_responsable', 'up_miembro', 'cesem_especialista', 'cesem_responsable', 'actividad', 'enfermedad_observación', 'diagnostico', 'cattle', 'sheep', 'alpacas', 'llamas', 'canes', 'url']
 
-
 class VisitAnimalViewSet(viewsets.ModelViewSet):
 
     queryset = VisitAnimal.objects\
-        .select_related('zone')\
-        .select_related('up_responsable','up_member','employ_specialist','employ_responsable')\
+        .select_related('production_unit')\
+        .select_related('production_unit__zone')\
+        .select_related('production_unit__person_responsable')\
+        .select_related('production_unit__person_member')\
+        .select_related('employ_specialist','employ_responsable')\
         .select_related('activity')\
         .select_related('sickness_observation')\
         .select_related('diagnostic')\
-        .all()
+        .all()        
     serializer_class = VisitAnimalPathSerializer
 
     filterset_fields = {
-        'zone__name': ['contains'],
-        'up_responsable__name': ['contains'],
-        'up_member__name': ['contains'],
+        'production_unit__zone__name': ['contains'],
+        'production_unit__person_responsable__name': ['contains'],
+        'production_unit__person_member__name': ['contains'],
         'employ_specialist__name': ['contains'],
         'employ_responsable__name': ['contains'],
         'activity__name': ['contains'],

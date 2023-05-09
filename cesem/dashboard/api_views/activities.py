@@ -10,8 +10,11 @@ class ActivityPathSerializer(BasePathSerializer):
     
     class Meta:
         model = Activity
-        fields = ['name', 'url']
-        
+        fields = ['position', 'name', 'short_name', 'parent', 'url', 'um']
+        extra_kwargs = {
+            'parent': {'write_only': True},
+            'um': {'write_only': True},
+        }
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()

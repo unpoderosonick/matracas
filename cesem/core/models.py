@@ -24,7 +24,7 @@ class Person(models.Model):
 
         
 class Zone(models.Model):
-    name = models.CharField('zona', max_length=20)
+    name = models.CharField('nombre', max_length=20, unique=True)
     
     class Meta:
         verbose_name = 'zona'
@@ -32,17 +32,10 @@ class Zone(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-class Sector(models.Model):
-    name = models.CharField('Sector', max_length=20)
-
-    def __str__(self) -> str:
-        return self.name
-
-
+    
 class Community(models.Model):
-    name = models.CharField('comunidad', max_length=20)
+    name = models.CharField('nombre', max_length=20, unique=True)
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
 
     class Meta:
         verbose_name = 'comunidad'
@@ -51,24 +44,36 @@ class Community(models.Model):
     def __str__(self) -> str:
         return self.name
 
+class Sector(models.Model):
+    name = models.CharField('nombre', max_length=20, unique=True)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
 
-class ProductyUnit(models.Model):
-    tipology = models.IntegerField()
-    is_pilot = models.BooleanField()
+    class Meta:
+        verbose_name = 'sector'
+        verbose_name_plural = 'sectores'
+    
+    def __str__(self) -> str:
+        return self.name
 
+#################
 class Activity(models.Model):
     class Meta:
         verbose_name = 'actividad'
         verbose_name_plural = 'actividades'
+        ordering = ('position',)
 
-    name = models.CharField('actividad', max_length=50)
+    position = models.CharField('posición', max_length=6)
+    name = models.CharField('nombre', max_length=100)
+    short_name = models.CharField('nombre corto',default='', max_length=100)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, default=None, null=True, blank=True)
+    um = models.CharField('unidad de medida', null=True, blank=True, max_length=50)
 
     def __str__(self) -> str:
         return self.name
 
 
 class SicknessObservation(models.Model):
-    name = models.CharField('actividad', max_length=50)
+    name = models.CharField('nombre', max_length=50)
 
     class Meta:
         verbose_name = 'enfermedad/observación'
@@ -104,14 +109,21 @@ class Drug(models.Model):
     def __str__(self) -> str:
         return self.name
 
-
-class VisitAnimal(models.Model):
-    visited_at = models.DateField('fecha de creación')
+class ProductionUnit(models.Model):
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
     community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE, verbose_name='sector')
-    up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable_animal', verbose_name='up. responsable')
-    up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member_animal', verbose_name='up. integrante')
+    person_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='person_responsable_animal', verbose_name='up. responsable')
+    person_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='person_member_animal', verbose_name='up. integrante')
+    tipology = models.IntegerField(default=0)
+    is_pilot = models.BooleanField(default=False)    
+    class Meta:
+        verbose_name = 'Unidad de Producción'
+        verbose_name_plural = 'Unidades de Producción'
+
+class VisitAnimal(models.Model):
+    visited_at = models.DateField('fecha de creación')
+    production_unit = models.ForeignKey(ProductionUnit, on_delete=models.CASCADE, verbose_name='UP')
     employ_specialist = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_specialist_animal', verbose_name='personal especialista')
     employ_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_responsable_animal', verbose_name='personal responsable')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='actividad')    
@@ -138,11 +150,7 @@ class VisitAnimalDetails(models.Model):
 
 class VisitGrass(models.Model):
     visited_at = models.DateField('fecha de creacion')
-    zone = models.ForeignKey(Zone, on_delete=models.CASCADE, verbose_name='zona')
-    community = models.ForeignKey(Community, on_delete=models.CASCADE, verbose_name='comunidad')
-    sector = models.ForeignKey(Sector, on_delete=models.CASCADE, verbose_name='sector')
-    up_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_responsable_grass', verbose_name='up. responsable')
-    up_member = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='up_member_grass', verbose_name='up. integrante')
+    production_unit = models.ForeignKey(ProductionUnit, on_delete=models.CASCADE)    
     utm_coordenate = models.CharField('coordenadas UTM anuales', max_length=30, null=True, blank=True)
     employ_specialist = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_specialist_grass', verbose_name='personal especialista')
     employ_responsable = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employ_responsable_grass', verbose_name='personal responsable')
