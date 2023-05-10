@@ -13,6 +13,7 @@ class Person(models.Model):
     class Meta:
         verbose_name = "persona"
         verbose_name_plural = "personas"
+        ordering = ("name",)
 
     dni = models.CharField("dni", max_length=8, null=True, blank=True)
     name = models.CharField("nombres", max_length=20)

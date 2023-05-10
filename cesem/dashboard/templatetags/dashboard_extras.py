@@ -12,7 +12,7 @@ def get_columns_labels(view_model, colums):
 
 
 def get_column_label(view_model, column_name):
-    if column_name in view_model.get_serializer():
+    if column_name in view_model.get_serializer().fields:
         return view_model.get_serializer().fields[column_name].label
     return column_name
 
