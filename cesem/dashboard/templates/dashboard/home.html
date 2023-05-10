@@ -1,41 +1,30 @@
-{% extends 'dashboard/layout.html' %} {% block body %}
+{% extends 'dashboard/layout.html' %}
+<br />
 {% load dashboard_extras %}
+<br />
+{% block body %}
 
 <h2>{{ message }}</h2>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th rowspan="2">Actividad</th>
-      {% for stat in result %}
-      <th colspan="6">{{stat.start_of_week}}</th>
-      {% endfor %}
-    </tr>
-    <tr>
-      {% for stat in result %}
-      <th>vacas</th>
-      <th>ovinos</th>
-      <th>alpacas</th>
-      <th>llamas</th>
-      <th>canes</th>
-      <th class="warning">Total</th>
+      <th colspan="2">Actividad</th>
+      {% for w in weeks_number %}
+      <th>{{w|get_start_date_of_week:2022}}</th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
-    {% for activity in activities %}
+    {% for a in activities %}
     <tr>
-      <td>{{activity.name}}</td>
-      {% for stat in stats %}
-      <td>{{stat.sum_cattle}}</td>    
-      <td>{{stat.sum_sheep}}</td>    
-      <td>{{stat.sum_alpacas}}</td>    
-      <td>{{stat.sum_llamas}}</td>    
-      <td>{{stat.sum_canes}}</td>    
-      <td class="warning">{{stat.sum_animals}}</td>    
+      <td>{{a.position}}</td>
+      <td>{{a.name}}</td>
+      {% for w in weeks_number %}
+      <td class="warning">{% get_activity_data_value a w activities_data %}</td>
       {% endfor %}
     </tr>
-    {% endfor %} 
+    {% endfor %}
   </tbody>
 </table>
 

@@ -2,19 +2,20 @@ from rest_framework import viewsets
 from core.models import Activity
 from .utils import BasePathSerializer
 
+
 class ActivityPathSerializer(BasePathSerializer):
-       
     @staticmethod
     def get_path():
-        return 'activities'
-    
+        return "activities"
+
     class Meta:
         model = Activity
-        fields = ['position', 'name', 'short_name', 'parent', 'url', 'um']
+        fields = ["position", "name", "short_name", "parent", "url", "um"]
         extra_kwargs = {
-            'parent': {'write_only': True},
-            'um': {'write_only': True},
+            "parent": {"write_only": True},
+            "um": {"write_only": True},
         }
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()

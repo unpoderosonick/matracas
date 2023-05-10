@@ -1,34 +1,48 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <!-- <link rel="icon" href="../../favicon.ico"> -->
-    <link rel="canonical" href="https://getbootstrap.com/docs/3.4/examples/dashboard/">
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/3.4/examples/dashboard/"
+    />
 
     <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/bootstrap.min.css' %}"/>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'rest_framework/css/bootstrap.min.css' %}"
+    />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="https://getbootstrap.com/docs/3.4/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link
+      href="https://getbootstrap.com/docs/3.4/assets/css/ie10-viewport-bug-workaround.css"
+      rel="stylesheet"
+    />
 
     <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/3.4/examples/dashboard/dashboard.css" rel="stylesheet">
+    <link
+      href="https://getbootstrap.com/docs/3.4/examples/dashboard/dashboard.css"
+      rel="stylesheet"
+    />
 
-    {% block style %}
-    {% endblock %}  
-    <link href="{% static 'dashboard/css/custom.css' %}" rel="stylesheet">
+    {% block style %} {% endblock %}
+    <link href="{% static 'dashboard/css/custom.css' %}" rel="stylesheet" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9
+      ]><script src="../../assets/js/ie8-responsive-file-warning.js"></script
+    ><![endif]-->
     <script src="https://getbootstrap.com/docs/3.4/assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -39,11 +53,17 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#navbar"
+            aria-expanded="false"
+            aria-controls="navbar"
+          >
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -63,41 +83,68 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="{% url 'dashboard:reports_animals' %}">Reporte de Animales</a></li>
-            <li><a href="{% url 'dashboard:visits-animals-list' %}">Vista de Animales</a></li>
-            <li><a href="{% url 'dashboard:production_units-list' %}"> Unidades Productivas </a></li>
+            <li class="active">
+              <a href="#">Overview <span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="{% url 'dashboard:reports_animals' %}"
+                >Reporte de Animales</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'dashboard:visits-animals-list' %}"
+                >Vista de Animales</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'dashboard:production_units-list' %}">
+                Unidades Productivas
+              </a>
+            </li>
           </ul>
           <h5>Configuraciones</h5>
           <ul class="nav nav-sidebar">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard:people-list'%}"> Personas </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/api/zones/"> Zonas </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/api/sectors/"> Sectores </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/api/communities/"> Comunidades </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard:activities-list' %}"> Actividades </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard:sickness_observations-list' %}"> Enfermedades / Obrsevaciones </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard:diagnostics-list' %}"> Diagnosticos </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard:drugs-list' %}"> Farmacos </a>
-              </li>
+              <a class="nav-link" href="{% url 'dashboard:people-list'%}">
+                Personas
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/zones/"> Zonas </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/sectors/"> Sectores </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/communities/"> Comunidades </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard:activities-list' %}">
+                Actividades
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{% url 'dashboard:sickness_observations-list' %}"
+              >
+                Enfermedades / Obrsevaciones
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard:diagnostics-list' %}">
+                Diagnosticos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard:drugs-list' %}">
+                Farmacos
+              </a>
+            </li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            {% block body %}{% endblock %}        
+          {% block body %}{% endblock %}
         </div>
       </div>
     </div>
@@ -105,15 +152,22 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.jQuery ||
+        document.write(
+          '<script src="../../assets/js/vendor/jquery.min.js"><\/script>'
+        );
+    </script>
     <!-- <script src="../../dist/js/bootstrap.min.js"></script> -->
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- <script src="../../assets/js/vendor/holder.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
-    {% block script %}
-    {% endblock %}
-    
+    {% block script %} {% endblock %}
   </body>
 </html>

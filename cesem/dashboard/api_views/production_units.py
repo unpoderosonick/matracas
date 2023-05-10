@@ -17,9 +17,7 @@ class ProductionUnitPathSerializer(BasePathSerializer):
     
     class Meta:
         model = ProductionUnit
-        fields = ('zona', 'comunidad', 'sector', 'responsable', 'miembro', 'tipologia', 'es_pilot', 'url')
-        #fields = ('zone', 'community', 'sector', 'person_responsable', 'person_member', 'tipology', 'is_pilot', 'url')
-        
+        fields = ('zona', 'comunidad', 'sector', 'responsable', 'miembro', 'tipologia', 'es_pilot', 'url')        
 
 class ProductionUnitViewSet(viewsets.ModelViewSet):
     queryset = ProductionUnit.objects.all()

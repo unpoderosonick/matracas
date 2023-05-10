@@ -1,9 +1,21 @@
 from django.contrib import admin
-from core.models import Activity, Person, VisitAnimal, VisitAnimalDetails, Community, Diagnostic, Drug, SicknessObservation, Zone
+from core.models import (
+    Activity,
+    Person,
+    VisitAnimal,
+    VisitAnimalDetails,
+    Community,
+    Diagnostic,
+    Drug,
+    SicknessObservation,
+    Zone,
+)
+
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('name', 'dni', 'sex')
-    ordering = ['name']
+    list_display = ("name", "dni", "sex")
+    ordering = ["name"]
+
 
 admin.site.register(Person, PersonAdmin)
 
@@ -15,8 +27,10 @@ admin.site.register(Drug)
 admin.site.register(SicknessObservation)
 admin.site.register(Zone)
 
+
 class VisitDetailInline(admin.TabularInline):
     model = VisitAnimalDetails
+
 
 class VisitAdmin(admin.ModelAdmin):
     inlines = [
