@@ -1,0 +1,12 @@
+{% load rest_framework %} <br />
+{% load dashboard_extras %}
+<table class="table table-striped">
+  <tbody>
+    {% for key, value in results|items %} {% if key in details %}
+    <tr>
+      <th>{{ view|get_column_label:key }}</th>
+      <td {{ value|add_nested_class }}>{{ value|format_value }}</td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
+</table>
