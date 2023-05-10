@@ -96,12 +96,6 @@
 
               <div style="clear: both"></div>
 
-              {% if paginator %}
-                <nav style="float: right">
-                  {% get_pagination_html paginator %}
-                </nav>
-              {% endif %}
-              
               <div class="request-info" style="clear: both" >
                 {% if style == 'list' %}
                   {% include "rest_framework/admin/list.html" %}                  
