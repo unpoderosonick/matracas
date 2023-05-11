@@ -11,8 +11,5 @@ COPY cesem/. $DockerHOME
 # run this command to install all dependencies  
 RUN pip install -r requirements.txt
 
-
-RUN python manage.py migrate
-
-
+ENTRYPOINT ["python3"] 
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
