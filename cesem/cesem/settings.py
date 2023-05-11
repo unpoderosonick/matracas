@@ -173,4 +173,6 @@ if DEBUG:
     mimetypes.add_type("application/javascript", ".js", True)
 
 
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://cesem-bichocj.b4a.run",
+]
