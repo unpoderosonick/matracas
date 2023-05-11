@@ -16,8 +16,8 @@ class Person(models.Model):
         ordering = ("name",)
 
     dni = models.CharField("dni", max_length=8, null=True, blank=True)
-    name = models.CharField("nombres", max_length=20)
-    last_name = models.CharField("apellidos", max_length=20, null=True, blank=True)
+    name = models.CharField("nombres", max_length=50)
+    last_name = models.CharField("apellidos", max_length=50, null=True, blank=True)
     sex = models.IntegerField("sexo", choices=Sexs.choices, blank=True, null=True)
     title = models.IntegerField("titulo", choices=Titles.choices, blank=True, null=True)
 

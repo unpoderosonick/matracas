@@ -145,9 +145,9 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Edit</h4>
+              <h4 class="modal-title" id="myModalLabel">Editar</h4>
             </div>
-            <form action="{{ request.get_full_path }}" data-method="PUT" enctype="multipart/form-data" class="form-horizontal" novalidate>
+            <form id="update_form" action="{{ request.get_full_path }}" data-method="PUT" enctype="multipart/form-data" class="form-horizontal" novalidate>
               <div class="modal-body">
                 <fieldset>
                   {{ put_form }}
@@ -205,6 +205,37 @@
         <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
         <script src="{% static "rest_framework/js/default.js" %}"></script>
         <script src="{% static "rest_framework/js/load-ajax-form.js" %}"></script>
+        <script>
+          $("#update_form").on( "submit", function( event ) {
+            event.preventDefault();
+
+            // clear previous errors
+            $('.help-block').remove();
+            $('.has-error').removeClass('has-error');
+
+            $.ajax({
+              type : 'PUT',
+              url : '{{ request.get_full_path }}',
+              data: $('#update_form').serialize(),
+              success: function (data) {
+                location.reload();
+              },
+              error: function(data) {
+                for (const [key, value] of Object.entries(data.responseJSON)) {                  
+                  const $field = $('#update_form').find(`[name="${key}"]`);
+                  if ($field.length) {
+                    const $parent = $field.parent();
+                    $parent.append(`<span class="help-block">${value}</span>`) // appends span to div.col
+                    $parent.parent().addClass('has-error'); // add has-error to div.form-control
+                  } else {
+                    alert(`${key}: ${value}`);
+                  }
+                }
+              }
+            });
+            return false;
+          });
+        </script>
       {% endblock %}
     </body>
   {% endblock %}
