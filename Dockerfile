@@ -1,4 +1,3 @@
-# base image  
 FROM python:3.8
 
 # port where the Django app runs  
@@ -20,9 +19,6 @@ RUN apt-get update && apt-get install -y libpq-dev \
 RUN pip install psycopg2==2.8.3
 RUN apt-get autoremove -y gcc
 
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x $DockerHOME/docker-entrypoint.sh
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-
-#ENTRYPOINT ["python3"] 
-#CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "$DockerHOME/docker-entrypoint.sh" ]
