@@ -1,4 +1,5 @@
 {% load static %}
+{% load dashboard_extras %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,7 +54,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button
@@ -82,62 +83,74 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+          <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">            
+            General
+          </strong>
           <ul class="nav nav-sidebar">
-            <li class="active">
-              <a href="#">Overview <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="bd-links-link d-inline-block rounded {{'reports/animals'|active_if_path_match:request}}"
+              href="{% url 'dashboard:reports_animals'%}">
+                Reporte de Animales
+              </a>
             </li>
-            <li>
-              <a href="{% url 'dashboard:reports_animals' %}"
-                >Reporte de Animales</a
+            <li class="nav-item">
+              <a class="bd-links-link d-inline-block rounded {{'visits-animals'|active_if_path_match:request}}"
+              href="{% url 'dashboard:visits-animals-list'%}">
+                Vista de Animales</a
               >
             </li>
-            <li>
-              <a href="{% url 'dashboard:visits-animals-list' %}"
-                >Vista de Animales</a
-              >
-            </li>
-            <li>
-              <a href="{% url 'dashboard:production_units-list' %}">
+            <li class="nav-item">
+              <a class="bd-links-link d-inline-block rounded {{'production_units'|active_if_path_match:request}}"
+              href="{% url 'dashboard:production_units-list'%}">
                 Unidades Productivas
               </a>
             </li>
           </ul>
-          <h5>Configuraciones</h5>
+          <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
+            Configuraciones
+          </strong>
           <ul class="nav nav-sidebar">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'dashboard:people-list'%}">
+              <a class="bd-links-link d-inline-block rounded {{'people'|active_if_path_match:request}}"
+              href="{% url 'dashboard:people-list'%}">
                 Personas
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/api/zones/"> Zonas </a>
+              <a class="bd-links-link d-inline-block rounded {{'zone'|active_if_path_match:request}}"
+              href="/api/zones/"> Zonas </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/api/sectors/"> Sectores </a>
+              <a class="bd-links-link d-inline-block rounded {{'sectors'|active_if_path_match:request}}"
+              href="/api/sectors/"> Sectores </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/api/communities/"> Comunidades </a>
+              <a class="bd-links-link d-inline-block rounded {{'communities'|active_if_path_match:request}}"
+              href="/api/communities/"> Comunidades </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'dashboard:activities-list' %}">
+              <a class="bd-links-link d-inline-block rounded {{'activities'|active_if_path_match:request}}" 
+              href="{% url 'dashboard:activities-list' %}">
                 Actividades
               </a>
             </li>
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="bd-links-link d-inline-block rounded {{'sickness_observations'|active_if_path_match:request}}"
                 href="{% url 'dashboard:sickness_observations-list' %}"
               >
                 Enfermedades / Obrsevaciones
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'dashboard:diagnostics-list' %}">
+              <a class="bd-links-link d-inline-block rounded {{'diagnostics'|active_if_path_match:request}}"
+              href="{% url 'dashboard:diagnostics-list' %}">
                 Diagnosticos
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'dashboard:drugs-list' %}">
+              <a class="bd-links-link d-inline-block rounded {{'drugs'|active_if_path_match:request}}"
+              href="{% url 'dashboard:drugs-list' %}">
                 Farmacos
               </a>
             </li>

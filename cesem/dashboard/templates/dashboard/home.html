@@ -2,7 +2,28 @@
 <br />
 {% load dashboard_extras %}
 <br />
-{% block title %}CESEM | administrador{% endblock %} {% block body %}
+{% block title %}CESEM | administrador{% endblock %} 
+
+{% block style %}
+<style>
+  th 
+{
+  vertical-align: bottom;
+  text-align: center;
+}
+
+th span 
+{
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+</style>
+
+{% endblock %}
+{% block body %}
 
 <h2>{{ message }}</h2>
 
@@ -11,7 +32,7 @@
     <tr>
       <th colspan="2">Actividad</th>
       {% for w in weeks_number %}
-      <th>{{w|get_start_date_of_week:2022}}</th>
+      <th><span>{{w|get_start_date_of_week:2022|date:"d M"}}</span></th>
       {% endfor %}
     </tr>
   </thead>

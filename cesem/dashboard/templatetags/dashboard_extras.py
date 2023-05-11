@@ -47,9 +47,16 @@ def get_start_date_of_week(week_number, year):
     return start_of_week
 
 
+def active_if_path_match(keyword, request):
+    if request.path.__contains__(keyword):
+        return "active"
+    return ""
+
+
 register.filter("get_columns_labels", get_columns_labels)
 register.filter("get_column_label", get_column_label)
 register.filter("get_model_name_plural", get_model_name_plural)
 register.filter("get_model_name", get_model_name)
 register.filter("get_home_path", get_home_path)
 register.filter("get_start_date_of_week", get_start_date_of_week)
+register.filter("active_if_path_match", active_if_path_match)
