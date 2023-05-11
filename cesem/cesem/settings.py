@@ -171,3 +171,6 @@ if DEBUG:
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
+
+
+CSRF_TRUSTED_ORIGINS = ["*"]
