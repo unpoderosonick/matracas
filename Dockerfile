@@ -11,6 +11,7 @@ WORKDIR $DockerHOME
 
 COPY cesem/. $DockerHOME
 # run this command to install all dependencies  
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN pip install -r requirements.txt
 RUN apt-get update && apt-get install -y libpq-dev \
     gcc \
@@ -21,4 +22,4 @@ RUN apt-get autoremove -y gcc
 
 RUN chmod +x $DockerHOME/docker-entrypoint.sh
 
-ENTRYPOINT [ "$DockerHOME/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
