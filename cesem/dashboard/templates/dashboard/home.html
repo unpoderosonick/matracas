@@ -6,7 +6,10 @@
 
 {% block style %}
 <style>
-  th 
+table {
+  background-color: white;
+}
+th 
 {
   vertical-align: bottom;
   text-align: center;
@@ -40,7 +43,7 @@ th span
     {% for a in activities %}
     <tr>
       <td>{{a.position}}</td>
-      <td>{{a.name}}</td>
+      <td style="white-space: nowrap;">{{a.name}}</td>
       {% for w in weeks_number %}
       <td class="warning">{% get_activity_data_value a w activities_data %}</td>
       {% endfor %}
