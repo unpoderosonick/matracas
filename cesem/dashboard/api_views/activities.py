@@ -10,7 +10,14 @@ class ActivityPathSerializer(BasePathSerializer):
 
     class Meta:
         model = Activity
-        fields = ["position", "name", "short_name", "parent", "url", "um"]
+        fields = (
+            "position",
+            "name",
+            "short_name",
+            "um",
+            "parent",
+            "url",
+        )
         extra_kwargs = {
             "parent": {"write_only": True},
             "um": {"write_only": True},

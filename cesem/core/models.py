@@ -72,7 +72,12 @@ class Activity(models.Model):
     name = models.CharField("nombre", max_length=100)
     short_name = models.CharField("nombre corto", default="", max_length=100)
     parent = models.ForeignKey(
-        "self", on_delete=models.CASCADE, default=None, null=True, blank=True
+        "self",
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name="actividad superior",
     )
     um = models.CharField("unidad de medida", null=True, blank=True, max_length=50)
 
