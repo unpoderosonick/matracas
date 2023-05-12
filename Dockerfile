@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y libpq-dev \
     gcc \
     postgresql-client
 
-RUN pip install psycopg2==2.8.3
+RUN pip install psycopg2==2.8.4
 RUN apt-get autoremove -y gcc
 
 RUN chmod +x /app/docker-entrypoint.sh
