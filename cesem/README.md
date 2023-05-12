@@ -6,3 +6,6 @@ preguntas:
 - test
 
 configure the "format on save" using this tutorial https://marcobelo.medium.com/setting-up-python-black-on-visual-studio-code-5318eba4cd00
+
+configure docker
+https://medium.com/analytics-vidhya/django-with-docker-and-docker-compose-python-part-2-8415976470cc
