@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mysite
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn cesem.cesem.wsgi:application"
+    envVars:      
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: 0
