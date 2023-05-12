@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR $DockerHOME  
 
 COPY cesem/. $DockerHOME
-COPY docker-entrypoint $DockerHOME
+COPY docker-entrypoint.sh $DockerHOME
 # run this command to install all dependencies  
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN pip install -r requirements.txt
