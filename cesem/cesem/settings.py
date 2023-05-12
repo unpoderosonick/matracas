@@ -190,4 +190,5 @@ if DEBUG:
 
 CSRF_TRUSTED_ORIGINS = [
     "https://cesem-bichocj.b4a.run",
+    "https://broken-thunder-4458.fly.dev",
 ]
