@@ -25,14 +25,6 @@ SECRET_KEY = "django-insecure-pk1(-x!u$-jelkeq=a3-vi#_!)2u^bt^pt8iy#hoathc*gyhi4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.getenv("DEBUG", default=1)))
-print("DEBUG-----------------------------------------------------------------")
-print("DEBUG-----------------------------------------------------------------")
-print("DEBUG-----------------------------------------------------------------")
-print(os.getenv("DEBUG"))
-print("DEBUG-----------------------------------------------------------------")
-print("DEBUG-----------------------------------------------------------------")
-print("DEBUG-----------------------------------------------------------------")
-print(DEBUG)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -191,4 +183,5 @@ if DEBUG:
 CSRF_TRUSTED_ORIGINS = [
     "https://cesem-bichocj.b4a.run",
     "https://broken-thunder-4458.fly.dev",
+    "https://bold-snowflake-842.fly.dev",
 ]
