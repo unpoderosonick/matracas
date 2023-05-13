@@ -7,7 +7,11 @@ ENV DockerHOME=/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # where your code lives  
-WORKDIR $DockerHOME  
+WORKDIR $DockerHOME
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 COPY cesem/. $DockerHOME
 #COPY docker-entrypoint.sh $DockerHOME
