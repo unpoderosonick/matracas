@@ -28,5 +28,3 @@ RUN apt-get autoremove -y gcc
 RUN chmod +x /app/docker-entrypoint.sh
 
 ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
