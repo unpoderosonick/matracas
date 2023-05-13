@@ -100,6 +100,14 @@ if not DEBUG:
         conn_health_checks=True,
     )
 
+    MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
+
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -135,7 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Default primary key field type
