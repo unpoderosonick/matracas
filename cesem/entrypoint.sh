@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Collect static files
 echo "-------------------------Collect static files"
@@ -13,5 +13,6 @@ echo "-------------------------Apply loaddata migrations"
 python manage.py loaddata users.json
 
 # Start server
-echo "-------------------------Starting server"
-python manage.py runserver 0.0.0.0:8000
+# echo "-------------------------Starting server"
+# python manage.py runserver 0.0.0.0:8000
+gunicorn cesem.wsgi:application --bind 0.0.0.0:8000

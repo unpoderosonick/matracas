@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-pk1(-x!u$-jelkeq=a3-vi#_!)2u^bt^pt8iy#hoathc*gyhi4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG", 1))
+DEBUG = bool(int(os.getenv("DEBUG", default=1)))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -100,6 +100,14 @@ if not DEBUG:
         conn_health_checks=True,
     )
 
+    MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
+
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -135,7 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Default primary key field type
@@ -182,4 +190,6 @@ if DEBUG:
 
 CSRF_TRUSTED_ORIGINS = [
     "https://cesem-bichocj.b4a.run",
+    "https://broken-thunder-4458.fly.dev",
+    "https://bold-snowflake-842.fly.dev",
 ]
