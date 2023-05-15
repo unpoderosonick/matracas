@@ -1,4 +1,4 @@
-app = "bold-snowflake-842"
+app = "django-xsl-db"
 kill_signal = "SIGINT"
 kill_timeout = 5
 mounts = []
