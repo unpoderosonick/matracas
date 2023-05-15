@@ -5,7 +5,7 @@ ENV DockerHOME=/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 WORKDIR $DockerHOME
-COPY cesem/. .
+COPY app/. .
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils

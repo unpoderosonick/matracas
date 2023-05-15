@@ -3,7 +3,7 @@ services:
     name: mysite
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn cesem.cesem.wsgi:application"
+    startCommand: "gunicorn app.app.wsgi:application"
     envVars:      
       - key: SECRET_KEY
         generateValue: true
