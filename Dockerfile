@@ -1,10 +1,10 @@
 FROM python:3.8
 
 EXPOSE 8000
-ENV DockerHOME=/app
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-WORKDIR $DockerHOME
+WORKDIR /code
 COPY app/. .
 
 
@@ -16,6 +16,6 @@ RUN apt-get update && apt-get install -y libpq-dev \
 
 RUN apt-get autoremove -y gcc
 
-RUN chmod a+x /app/entrypoint.sh
+RUN chmod a+x /code/entrypoint.sh
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+ENTRYPOINT [ "/code/entrypoint.sh" ]
