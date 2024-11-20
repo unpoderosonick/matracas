@@ -1,5 +1,5 @@
 ### Create virtual env
-virtualenv --python python3 .env
+python3 -m venv myenv
 
 
 ### VS tools:
