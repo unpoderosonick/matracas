@@ -1,6 +1,12 @@
 ### Create virtual env
 python3 -m venv myenv
 
+### install dependencies
+
+cd app
+pip install -r requirements.txt
+
+note: be aware if there are a deprecated dependecy as postgress
 
 ### VS tools:
 configure the "format on save" using this tutorial https://marcobelo.medium.com/setting-up-python-black-on-visual-studio-code-5318eba4cd00
